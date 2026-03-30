@@ -22,6 +22,7 @@ It handles a narrow slice of server-side UI mechanics:
 - `requeststate`: parse `q` and `limit`
 - `htmx`: detect list vs editor HTMX requests
 - `fragment`: write HTML and compose OOB fragments
+- `panelcrud`: compose split-view CRUD responses over `htmx` and `fragment`
 
 ## Intended usage
 
@@ -33,6 +34,10 @@ Use `aile` for routing and middleware, `vexilo` for HTMX/HTML mechanics, and kee
 - `fragment.OOB(...)` inserts inner HTML literally into the emitted wrapper
 - Vexilo does not escape or sanitize markup
 - The application is responsible for the HTML it passes to Vexilo
+
+## Higher-Level Layer
+
+`panelcrud` is a small helper for the recurring list/editor split-view CRUD flow. It builds on `htmx` and `fragment`: the application still decides full-page rendering, owns the editor HTML, owns the list tbody HTML, and owns any extra notice fragments. Vexilo only composes the response shape of editor main fragment plus list tbody OOB refresh.
 
 ```go
 state := requeststate.Parse(r, 10, 100)
