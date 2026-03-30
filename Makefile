@@ -2,13 +2,16 @@ GUIX ?= guix
 GUIX_MANIFEST ?= ./manifest.scm
 GUIX_PACKAGE_FILE ?= ./guix.scm
 GUIX_SHELL = $(GUIX) shell --network -m $(GUIX_MANIFEST) --
+DOCKER ?= docker
+DOCKER_COMPOSE ?= $(DOCKER) compose
 PODMAN ?= podman
 PODMAN_COMPOSE ?= podman-compose
 
 GO_ENV = CGO_ENABLED=0
 
 .PHONY: all test test-local vet vet-local check check-local env guix-env emacs \
-	guix-test guix-vet guix-check podman-build podman-check podman-shell pkg ci
+	guix-test guix-vet guix-check docker-build docker-check docker-shell \
+	podman-build podman-check podman-shell pkg ci
 
 all: ci
 
@@ -34,6 +37,15 @@ test: guix-test
 vet: guix-vet
 
 check: guix-check
+
+docker-build:
+	$(DOCKER_COMPOSE) build ci
+
+docker-check:
+	$(DOCKER_COMPOSE) run --rm ci
+
+docker-shell:
+	$(DOCKER_COMPOSE) run --rm shell
 
 podman-build:
 	$(PODMAN_COMPOSE) --podman-path $(PODMAN) build ci
