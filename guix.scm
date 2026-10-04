@@ -37,7 +37,7 @@
 (define-public go-codeberg-org-urutau-ltd-vexilo
   (package
     (name "go-codeberg-org-urutau-ltd-vexilo")
-    (version "1.2.0")
+    (version "1.2.1")
     (source
      (local-file %project-directory
                  "vexilo-checkout"

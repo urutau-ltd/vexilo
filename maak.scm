@@ -34,7 +34,7 @@
 (define %guix-shell "guix shell --network -m ./manifest.scm --")
 (define %podman-compose "podman-compose --podman-path podman")
 
-(define %version "1.2.0")       ; keep in sync with guix.scm
+(define %version "1.2.1")       ; keep in sync with guix.scm
 (define %tag (string-append "v" %version))
 (define %remotes '("origin" "ro-mirror" "upstream"))
 
