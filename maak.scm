@@ -36,7 +36,7 @@
 
 (define %version "1.2.0")       ; keep in sync with guix.scm
 (define %tag (string-append "v" %version))
-(define %remotes '("origin" "ro-mirror"))
+(define %remotes '("origin" "ro-mirror" "upstream"))
 
 (define (test)
   "Run the Go test suite."
