@@ -1,4 +1,4 @@
-;; guix.scm --- Guix package file for Vexilo -*- mode: scheme; -*-
+;; guix.scm --- Guix package file for this library -*- mode: scheme; -*-
 ;;
 ;; SPDX-License-Identifier: AGPL-3.0-or-later or LGPL-3.0-or-later
 ;; Copyright © 2026 Urutau-Ltd <softwarelibre@urutau-ltd.org>
@@ -24,9 +24,9 @@
 ;; along with this program. If not, see <https://www.gnu.org/licenses/>.
 (use-modules (gnu packages golang)
              (guix packages)
+             (guix git-download)
              (guix build-system go)
              (guix utils)
-             (srfi srfi-13)
              ((guix licenses)
               #:prefix license:)
              (guix gexp))
@@ -34,25 +34,19 @@
 (define %project-directory
   (dirname (current-filename)))
 
-(define %git-directory
-  (string-append %project-directory "/.git"))
-
 (define-public go-codeberg-org-urutau-ltd-vexilo
   (package
     (name "go-codeberg-org-urutau-ltd-vexilo")
-    (version "0.1.0")
+    (version "1.2.0")
     (source
      (local-file %project-directory
                  "vexilo-checkout"
                  #:recursive? #t
-                 #:select? (lambda (file stat)
-                             (and (not (string=? file %git-directory))
-                                  (not (string-prefix? (string-append %git-directory "/")
-                                                       file))))))
+                 #:select? (git-predicate %project-directory)))
     (build-system go-build-system)
     (arguments
      (list
-      #:go go-1.26
+      #:go go-1.27
       #:import-path "codeberg.org/urutau-ltd/vexilo"
       #:phases
       #~(modify-phases %standard-phases
@@ -69,7 +63,7 @@
      "Vexilo is a small Go library for HTML-first applications using HTMX.
 It provides narrow mechanics for parsing shared list request state, detecting
 HTMX list and editor requests, and composing HTML fragment responses. This
-package definition builds the local repository checkout with the Go 1.26
+package definition builds the local repository checkout with the Go 1.27
 toolchain.")
     (license license:agpl3)))
 

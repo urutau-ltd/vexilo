@@ -2,6 +2,7 @@ package htmx
 
 import (
 	"net/http"
+	"slices"
 	"strings"
 )
 
@@ -71,13 +72,7 @@ func contains(values []string, want string) bool {
 		return false
 	}
 
-	for _, value := range values {
-		if value == want {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(values, want)
 }
 
 func sameTarget(got, want string) bool {

@@ -1,10 +1,9 @@
-FROM docker.io/library/golang:1.26-bookworm
+FROM docker.io/library/golang:1.27-bookworm
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         ca-certificates \
         git \
-        make \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace

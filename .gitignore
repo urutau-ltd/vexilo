@@ -22,6 +22,9 @@
 go.work
 go.work.sum
 
+# Local artifacts used by the registry publish target
+.cache/
+
 # env file
 .env
 

@@ -2,10 +2,10 @@ services:
   ci:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Containerfile
     image: localhost/vexilo-dev:latest
     working_dir: /workspace
-    command: ["make", "check-local"]
+    command: ["sh", "-c", "go test -v ./... && go vet ./..."]
     environment:
       CGO_ENABLED: "0"
     volumes:
